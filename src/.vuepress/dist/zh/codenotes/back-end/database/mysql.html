@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.9" />
+    <meta name="theme" content="VuePress Theme Hope 2.0.0-rc.36" />
+    <style>
+      html {
+        background: var(--bg-color, #fff);
+      }
+
+      html[data-theme="dark"] {
+        background: var(--bg-color, #1d1e1f);
+      }
+
+      body {
+        background: var(--bg-color);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem("vuepress-theme-hope-scheme");
+      const systemDarkMode =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      if (userMode === "dark" || (userMode !== "light" && systemDarkMode)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    </script>
+    <meta property="og:url" content="https://vuepress-theme-hope-docs-demo.netlify.app/zh/codenotes/back-end/database/mysql.html"><meta property="og:site_name" content="代码笔记"><meta property="og:title" content="数据库练习"><meta property="og:description" content="数据库练习 ​ 数据库练习的一些实验 实验一 1. 创建库 2. 创建表 3. 插入数据 实验二 表及数据操作 实验三 简单查询 实验四 多表查询 实验五 统计查询 实验六 视图操作 实验七 数据完整性 实验八 用户及权限管理 实验九 数据库完整性约束高级设置"><meta property="og:type" content="website"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2024-04-20T18:37:44.000Z"><meta property="article:author" content="Mr.Bing"><meta property="article:tag" content="mysql"><meta property="article:tag" content="导航"><meta property="article:modified_time" content="2024-04-20T18:37:44.000Z"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"数据库练习","description":"数据库练习 ​ 数据库练习的一些实验 实验一 1. 创建库 2. 创建表 3. 插入数据 实验二 表及数据操作 实验三 简单查询 实验四 多表查询 实验五 统计查询 实验六 视图操作 实验七 数据完整性 实验八 用户及权限管理 实验九 数据库完整性约束高级设置"}</script><title>数据库练习 | 代码笔记</title><meta name="description" content="数据库练习 ​ 数据库练习的一些实验 实验一 1. 创建库 2. 创建表 3. 插入数据 实验二 表及数据操作 实验三 简单查询 实验四 多表查询 实验五 统计查询 实验六 视图操作 实验七 数据完整性 实验八 用户及权限管理 实验九 数据库完整性约束高级设置">
+    <link rel="preload" href="/assets/style-O1AzKrG2.css" as="style"><link rel="stylesheet" href="/assets/style-O1AzKrG2.css">
+    <link rel="modulepreload" href="/assets/app-556UZhiF.js"><link rel="modulepreload" href="/assets/mysql.html-DdAfwARA.js"><link rel="modulepreload" href="/assets/plugin-vue_export-helper-DlAUqK2U.js">
+    <link rel="prefetch" href="/assets/index.html-EDyJjhzl.js" as="script"><link rel="prefetch" href="/assets/disable.html-DdmjVeWn.js" as="script"><link rel="prefetch" href="/assets/encrypt.html-LdV_54l6.js" as="script"><link rel="prefetch" href="/assets/layout.html-2_DTUa0x.js" as="script"><link rel="prefetch" href="/assets/markdown.html-f3n5vwXk.js" as="script"><link rel="prefetch" href="/assets/page.html-C54mAw4u.js" as="script"><link rel="prefetch" href="/assets/index.html-BwX4jzlx.js" as="script"><link rel="prefetch" href="/assets/index.html-BdfLbcvd.js" as="script"><link rel="prefetch" href="/assets/index.html-msoK238z.js" as="script"><link rel="prefetch" href="/assets/baz.html-czz9MgrJ.js" as="script"><link rel="prefetch" href="/assets/index.html-CQM4j9tf.js" as="script"><link rel="prefetch" href="/assets/ray.html-CWCJP6i5.js" as="script"><link rel="prefetch" href="/assets/index.html-DMQG3BlP.js" as="script"><link rel="prefetch" href="/assets/disable.html-Bx9t3Jqp.js" as="script"><link rel="prefetch" href="/assets/encrypt.html-RVAnHj4j.js" as="script"><link rel="prefetch" href="/assets/layout.html-CJXzTTVK.js" as="script"><link rel="prefetch" href="/assets/markdown.html-BfYwLSZM.js" as="script"><link rel="prefetch" href="/assets/page.html-BSvhTLN7.js" as="script"><link rel="prefetch" href="/assets/index.html-D2HuQxxQ.js" as="script"><link rel="prefetch" href="/assets/index.html-BIKCkHOb.js" as="script"><link rel="prefetch" href="/assets/READNE.html-BjvgCE7o.js" as="script"><link rel="prefetch" href="/assets/READNE.html-CPMaCuPs.js" as="script"><link rel="prefetch" href="/assets/ray.html-A7pOr9hT.js" as="script"><link rel="prefetch" href="/assets/index.html-CZlm0sm7.js" as="script"><link rel="prefetch" href="/assets/baz.html-CXFJPfEG.js" as="script"><link rel="prefetch" href="/assets/index.html-BukfJ3vP.js" as="script"><link rel="prefetch" href="/assets/electron.html-b2KQbiVj.js" as="script"><link rel="prefetch" href="/assets/index.html-DzbA4_Kj.js" as="script"><link rel="prefetch" href="/assets/RegExp.html-DN-wCjaR.js" as="script"><link rel="prefetch" href="/assets/slot.html-kmwRALX7.js" as="script"><link rel="prefetch" href="/assets/index.html-DLNVaejA.js" as="script"><link rel="prefetch" href="/assets/sqlserver.html--HJwVPzx.js" as="script"><link rel="prefetch" href="/assets/git.html-DFPSGKEa.js" as="script"><link rel="prefetch" href="/assets/READNE.html-B1SDX06t.js" as="script"><link rel="prefetch" href="/assets/Docker.html-BmoTS4-I.js" as="script"><link rel="prefetch" href="/assets/READNE.html-tQv7HUgO.js" as="script"><link rel="prefetch" href="/assets/java.html-0Rp0tcbV.js" as="script"><link rel="prefetch" href="/assets/READNE.html-D6Zifmtx.js" as="script"><link rel="prefetch" href="/assets/kubernetes.html-BxQgHLvy.js" as="script"><link rel="prefetch" href="/assets/READNE.html-CMY3I-cC.js" as="script"><link rel="prefetch" href="/assets/Lambda.html-DdIlV8ot.js" as="script"><link rel="prefetch" href="/assets/READNE.html-C6K8MJ-K.js" as="script"><link rel="prefetch" href="/assets/hm-redis.html-CeH5NPMf.js" as="script"><link rel="prefetch" href="/assets/READNE.html-D-q7z36U.js" as="script"><link rel="prefetch" href="/assets/redis-deploy.html-BMcoTXZp.js" as="script"><link rel="prefetch" href="/assets/404.html-8uYD4jWd.js" as="script"><link rel="prefetch" href="/assets/index.html-DUgwx9TX.js" as="script"><link rel="prefetch" href="/assets/index.html-vXuM8zlR.js" as="script"><link rel="prefetch" href="/assets/index.html-BfHG9wcj.js" as="script"><link rel="prefetch" href="/assets/index.html-C-8o6O1p.js" as="script"><link rel="prefetch" href="/assets/index.html-DLbJw0Ip.js" as="script"><link rel="prefetch" href="/assets/index.html-CAZG-lkF.js" as="script"><link rel="prefetch" href="/assets/index.html-DUYdoWXA.js" as="script"><link rel="prefetch" href="/assets/index.html-BfkFVTmA.js" as="script"><link rel="prefetch" href="/assets/index.html-DbBY0Awk.js" as="script"><link rel="prefetch" href="/assets/index.html-DW_N-m2g.js" as="script"><link rel="prefetch" href="/assets/index.html-BTUNMLBN.js" as="script"><link rel="prefetch" href="/assets/dash.all.min-BF52VcER.js" as="script"><link rel="prefetch" href="/assets/mpegts-CC885RK9.js" as="script"><link rel="prefetch" href="/assets/hls.min-C94Y-gPt.js" as="script"><link rel="prefetch" href="/assets/artplayer-CHAGXahu.js" as="script"><link rel="prefetch" href="/assets/browser-D6eOinvE.js" as="script"><link rel="prefetch" href="/assets/giscus--_FS5kYt.js" as="script"><link rel="prefetch" href="/assets/photoswipe.esm-SzV8tJDW.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><!--[--><!--[--><span tabindex="-1"></span><a href="#main-content" class="vp-skip-link sr-only">跳至主要內容</a><!--]--><div class="theme-container has-toc"><!--[--><header id="navbar" class="vp-navbar"><div class="vp-navbar-start"><button type="button" class="vp-toggle-sidebar-button" title="Toggle Sidebar"><span class="icon"></span></button><!--[--><!----><!--]--><!--[--><a class="route-link vp-brand" href="/zh/"><img class="vp-nav-logo" src="/logo.svg" alt><!----><span class="vp-site-name hide-in-pad">代码笔记</span></a><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-center"><!--[--><!----><!--]--><!--[--><nav class="vp-nav-links"><div class="vp-nav-item hide-in-mobile"><a class="route-link nav-link" href="/zh/" aria-label="主页"><span class="font-icon icon fa-fw fa-sm fas fa-home" style=""></span>主页<!----></a></div><div class="vp-nav-item hide-in-mobile"><a class="route-link nav-link" href="/zh/demo/" aria-label="主要功能与配置演示"><span class="font-icon icon fa-fw fa-sm fas fa-laptop-code" style=""></span>主要功能与配置演示<!----></a></div><div class="vp-nav-item hide-in-mobile"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="代码笔记"><span class="title"><span class="font-icon icon fa-fw fa-sm fas fa-code" style=""></span>代码笔记</span><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/zh/codenotes/front-end/" aria-label="前端笔记"><span class="font-icon icon fa-fw fa-sm fas fa-lightbulb" style=""></span>前端笔记<!----></a></li><li class="dropdown-item"><a class="route-link nav-link active" href="/zh/codenotes/back-end/" aria-label="后端笔记"><span class="font-icon icon fa-fw fa-sm fas fa-heart" style=""></span>后端笔记<!----></a></li></ul></button></div></div></nav><!--]--><!--[--><!----><!--]--></div><div class="vp-navbar-end"><!--[--><!----><!--]--><!--[--><div class="vp-nav-item"><div class="dropdown-wrapper"><button type="button" class="dropdown-title" aria-label="选择语言"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon i18n-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="i18n icon" style="width:1rem;height:1rem;vertical-align:middle;"><path d="M379.392 460.8 494.08 575.488l-42.496 102.4L307.2 532.48 138.24 701.44l-71.68-72.704L234.496 460.8l-45.056-45.056c-27.136-27.136-51.2-66.56-66.56-108.544h112.64c7.68 14.336 16.896 27.136 26.112 35.84l45.568 46.08 45.056-45.056C382.976 312.32 409.6 247.808 409.6 204.8H0V102.4h256V0h102.4v102.4h256v102.4H512c0 70.144-37.888 161.28-87.04 210.944L378.88 460.8zM576 870.4 512 1024H409.6l256-614.4H768l256 614.4H921.6l-64-153.6H576zM618.496 768h196.608L716.8 532.48 618.496 768z"></path></svg><!--]--><span class="arrow"></span><ul class="nav-dropdown"><li class="dropdown-item"><a class="route-link nav-link" href="/" aria-label="English"><!---->English<!----></a></li><li class="dropdown-item"><a class="route-link nav-link active" href="/zh/codenotes/back-end/database/mysql.html" aria-label="简体中文"><!---->简体中文<!----></a></li></ul></button></div></div><div class="vp-nav-item vp-action"><a class="vp-action-link" href="https://github.com/wbthylove/thylove" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg xmlns="http://www.w3.org/2000/svg" class="icon github-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="github icon" style="width:1.25rem;height:1.25rem;vertical-align:middle;"><path d="M511.957 21.333C241.024 21.333 21.333 240.981 21.333 512c0 216.832 140.544 400.725 335.574 465.664 24.49 4.395 32.256-10.07 32.256-23.083 0-11.69.256-44.245 0-85.205-136.448 29.61-164.736-64.64-164.736-64.64-22.315-56.704-54.4-71.765-54.4-71.765-44.587-30.464 3.285-29.824 3.285-29.824 49.195 3.413 75.179 50.517 75.179 50.517 43.776 75.008 114.816 53.333 142.762 40.79 4.523-31.66 17.152-53.377 31.19-65.537-108.971-12.458-223.488-54.485-223.488-242.602 0-53.547 19.114-97.323 50.517-131.67-5.035-12.33-21.93-62.293 4.779-129.834 0 0 41.258-13.184 134.912 50.346a469.803 469.803 0 0 1 122.88-16.554c41.642.213 83.626 5.632 122.88 16.554 93.653-63.488 134.784-50.346 134.784-50.346 26.752 67.541 9.898 117.504 4.864 129.834 31.402 34.347 50.474 78.123 50.474 131.67 0 188.586-114.73 230.016-224.042 242.09 17.578 15.232 33.578 44.672 33.578 90.454v135.85c0 13.142 7.936 27.606 32.854 22.87C862.25 912.597 1002.667 728.747 1002.667 512c0-271.019-219.648-490.667-490.71-490.667z"></path></svg></a></div><div class="vp-nav-item hide-in-mobile"><button type="button" class="outlook-button" tabindex="-1" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="icon outlook-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="outlook icon"><path d="M224 800c0 9.6 3.2 44.8 6.4 54.4 6.4 48-48 76.8-48 76.8s80 41.6 147.2 0 134.4-134.4 38.4-195.2c-22.4-12.8-41.6-19.2-57.6-19.2C259.2 716.8 227.2 761.6 224 800zM560 675.2l-32 51.2c-51.2 51.2-83.2 32-83.2 32 25.6 67.2 0 112-12.8 128 25.6 6.4 51.2 9.6 80 9.6 54.4 0 102.4-9.6 150.4-32l0 0c3.2 0 3.2-3.2 3.2-3.2 22.4-16 12.8-35.2 6.4-44.8-9.6-12.8-12.8-25.6-12.8-41.6 0-54.4 60.8-99.2 137.6-99.2 6.4 0 12.8 0 22.4 0 12.8 0 38.4 9.6 48-25.6 0-3.2 0-3.2 3.2-6.4 0-3.2 3.2-6.4 3.2-6.4 6.4-16 6.4-16 6.4-19.2 9.6-35.2 16-73.6 16-115.2 0-105.6-41.6-198.4-108.8-268.8C704 396.8 560 675.2 560 675.2zM224 419.2c0-28.8 22.4-51.2 51.2-51.2 28.8 0 51.2 22.4 51.2 51.2 0 28.8-22.4 51.2-51.2 51.2C246.4 470.4 224 448 224 419.2zM320 284.8c0-22.4 19.2-41.6 41.6-41.6 22.4 0 41.6 19.2 41.6 41.6 0 22.4-19.2 41.6-41.6 41.6C339.2 326.4 320 307.2 320 284.8zM457.6 208c0-12.8 12.8-25.6 25.6-25.6 12.8 0 25.6 12.8 25.6 25.6 0 12.8-12.8 25.6-25.6 25.6C470.4 233.6 457.6 220.8 457.6 208zM128 505.6C128 592 153.6 672 201.6 736c28.8-60.8 112-60.8 124.8-60.8-16-51.2 16-99.2 16-99.2l316.8-422.4c-48-19.2-99.2-32-150.4-32C297.6 118.4 128 291.2 128 505.6zM764.8 86.4c-22.4 19.2-390.4 518.4-390.4 518.4-22.4 28.8-12.8 76.8 22.4 99.2l9.6 6.4c35.2 22.4 80 12.8 99.2-25.6 0 0 6.4-12.8 9.6-19.2 54.4-105.6 275.2-524.8 288-553.6 6.4-19.2-3.2-32-19.2-32C777.6 76.8 771.2 80 764.8 86.4z"></path></svg><div class="outlook-dropdown"><!----></div></button></div><!----><!--]--><!--[--><!----><!--]--><button type="button" class="vp-toggle-navbar-button" aria-label="Toggle Navbar" aria-expanded="false" aria-controls="nav-screen"><span><span class="vp-top"></span><span class="vp-middle"></span><span class="vp-bottom"></span></span></button></div></header><!----><!--]--><!----><div class="toggle-sidebar-wrapper"><span class="arrow start"></span></div><aside id="sidebar" class="vp-sidebar"><!--[--><!----><!--]--><ul class="vp-sidebar-links"><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/zh/" aria-label="主页"><span class="font-icon icon fa-fw fa-sm fas fa-home" style=""></span>主页<!----></a></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon fa-fw fa-sm fas fa-icon-daima" style=""></span><span class="vp-sidebar-title">代码笔记</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><span class="font-icon icon fa-fw fa-sm fas fa-laptop-code" style=""></span><span class="vp-sidebar-title">前端笔记</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon fa-fw fa-sm fas fa-laptop-code" style=""></span><span class="vp-sidebar-title">后端笔记</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/zh/codenotes/back-end/READNE.html" aria-label="指南"><span class="font-icon icon fa-fw fa-sm fas fa-lightbulb," style=""></span>指南<!----></a></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable active" type="button"><span class="font-icon icon fa-fw fa-sm fas fa-mysql" style=""></span><span class="vp-sidebar-title">Database</span><span class="vp-arrow down"></span></button><ul class="vp-sidebar-links"><li><a class="route-link nav-link active vp-sidebar-link vp-sidebar-page active" href="/zh/codenotes/back-end/database/mysql.html" aria-label="数据库练习"><span class="font-icon icon fa-fw fa-sm fas fa-mysql" style=""></span>数据库练习<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/zh/codenotes/back-end/database/sqlserver.html" aria-label="sql server"><span class="font-icon icon fa-fw fa-sm fas fa-mysql" style=""></span>sql server<!----></a></li></ul></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><!----><span class="vp-sidebar-title">Docker</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><!----><span class="vp-sidebar-title">Git</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><!----><span class="vp-sidebar-title">Java</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><!----><span class="vp-sidebar-title">Kubernetes</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><!----><span class="vp-sidebar-title">Lamdba</span><span class="vp-arrow end"></span></button><!----></section></li><li><section class="vp-sidebar-group"><button class="vp-sidebar-header clickable" type="button"><!----><span class="vp-sidebar-title">Redis</span><span class="vp-arrow end"></span></button><!----></section></li></ul></section></li></ul></section></li><li><section class="vp-sidebar-group"><p class="vp-sidebar-header clickable"><span class="font-icon icon fa-fw fa-sm fas fa-laptop-code" style=""></span><a class="route-link nav-link vp-sidebar-title" href="/zh/demo/" aria-label="案例"><!---->案例<!----></a><!----></p><ul class="vp-sidebar-links"><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/zh/demo/layout.html" aria-label="布局"><span class="font-icon icon fa-fw fa-sm fas fa-object-group" style=""></span>布局<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/zh/demo/markdown.html" aria-label="Markdown 展示"><span class="font-icon icon fa-fw fa-sm fab fa-markdown" style=""></span>Markdown 展示<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/zh/demo/page.html" aria-label="页面配置"><span class="font-icon icon fa-fw fa-sm fas fa-file" style=""></span>页面配置<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/zh/demo/disable.html" aria-label="布局与功能禁用"><span class="font-icon icon fa-fw fa-sm fas fa-gears" style=""></span>布局与功能禁用<!----></a></li><li><a class="route-link nav-link vp-sidebar-link vp-sidebar-page" href="/zh/demo/encrypt.html" aria-label="密码加密的文章"><span class="font-icon icon fa-fw fa-sm fas fa-lock" style=""></span>密码加密的文章<!----></a></li></ul></section></li></ul><!--[--><!----><!--]--></aside><!--[--><main id="main-content" class="vp-page"><!--[--><!--[--><!----><!--]--><!----><nav class="vp-breadcrumb disable"></nav><div class="vp-page-title"><h1><span class="font-icon icon fa-fw fa-sm fas fa-mysql" style=""></span>数据库练习</h1><div class="page-info"><span class="page-author-info" aria-label="作者🖊" data-balloon-pos="up"><svg xmlns="http://www.w3.org/2000/svg" class="icon author-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="author icon"><path d="M649.6 633.6c86.4-48 147.2-144 147.2-249.6 0-160-128-288-288-288s-288 128-288 288c0 108.8 57.6 201.6 147.2 249.6-121.6 48-214.4 153.6-240 288-3.2 9.6 0 19.2 6.4 25.6 3.2 9.6 12.8 12.8 22.4 12.8h704c9.6 0 19.2-3.2 25.6-12.8 6.4-6.4 9.6-16 6.4-25.6-25.6-134.4-121.6-240-243.2-288z"></path></svg><span><a class="page-author-item" href="https://thylove.cn" target="_blank" rel="noopener noreferrer">Mr.Bing</a></span><span property="author" content="Mr.Bing"></span></span><!----><span class="page-date-info" aria-label="写作日期📅" data-balloon-pos="up"><svg xmlns="http://www.w3.org/2000/svg" class="icon calendar-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="calendar icon"><path d="M716.4 110.137c0-18.753-14.72-33.473-33.472-33.473-18.753 0-33.473 14.72-33.473 33.473v33.473h66.993v-33.473zm-334.87 0c0-18.753-14.72-33.473-33.473-33.473s-33.52 14.72-33.52 33.473v33.473h66.993v-33.473zm468.81 33.52H716.4v100.465c0 18.753-14.72 33.473-33.472 33.473a33.145 33.145 0 01-33.473-33.473V143.657H381.53v100.465c0 18.753-14.72 33.473-33.473 33.473a33.145 33.145 0 01-33.473-33.473V143.657H180.6A134.314 134.314 0 0046.66 277.595v535.756A134.314 134.314 0 00180.6 947.289h669.74a134.36 134.36 0 00133.94-133.938V277.595a134.314 134.314 0 00-133.94-133.938zm33.473 267.877H147.126a33.145 33.145 0 01-33.473-33.473c0-18.752 14.72-33.473 33.473-33.473h736.687c18.752 0 33.472 14.72 33.472 33.473a33.145 33.145 0 01-33.472 33.473z"></path></svg><span><!----></span><meta property="datePublished" content="2024-04-20T18:37:44.000Z"></span><span class="page-pageview-info" aria-label="访问量🔢" data-balloon-pos="up"><svg xmlns="http://www.w3.org/2000/svg" class="icon eye-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="eye icon"><path d="M992 512.096c0-5.76-.992-10.592-1.28-11.136-.192-2.88-1.152-8.064-2.08-10.816-.256-.672-.544-1.376-.832-2.08-.48-1.568-1.024-3.104-1.6-4.32C897.664 290.112 707.104 160 512 160c-195.072 0-385.632 130.016-473.76 322.592-1.056 2.112-1.792 4.096-2.272 5.856a55.512 55.512 0 00-.64 1.6c-1.76 5.088-1.792 8.64-1.632 7.744-.832 3.744-1.568 11.168-1.568 11.168-.224 2.272-.224 4.032.032 6.304 0 0 .736 6.464 1.088 7.808.128 1.824.576 4.512 1.12 6.976h-.032c.448 2.08 1.12 4.096 1.984 6.08.48 1.536.992 2.976 1.472 4.032C126.432 733.856 316.992 864 512 864c195.136 0 385.696-130.048 473.216-321.696 1.376-2.496 2.24-4.832 2.848-6.912.256-.608.48-1.184.672-1.728 1.536-4.48 1.856-8.32 1.728-8.32l-.032.032c.608-3.104 1.568-7.744 1.568-13.28zM512 672c-88.224 0-160-71.776-160-160s71.776-160 160-160 160 71.776 160 160-71.776 160-160 160z"></path></svg><span id="ArtalkPV" class="vp-pageview waline-pageview-count" data-path="/zh/codenotes/back-end/database/mysql.html" data-page-key="/zh/codenotes/back-end/database/mysql.html">...</span></span><span class="page-reading-time-info" aria-label="阅读时间⌛" data-balloon-pos="up"><svg xmlns="http://www.w3.org/2000/svg" class="icon timer-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="timer icon"><path d="M799.387 122.15c4.402-2.978 7.38-7.897 7.38-13.463v-1.165c0-8.933-7.38-16.312-16.312-16.312H256.33c-8.933 0-16.311 7.38-16.311 16.312v1.165c0 5.825 2.977 10.874 7.637 13.592 4.143 194.44 97.22 354.963 220.201 392.763-122.204 37.542-214.893 196.511-220.2 389.397-4.661 5.049-7.638 11.651-7.638 19.03v5.825h566.49v-5.825c0-7.379-2.849-13.981-7.509-18.9-5.049-193.016-97.867-351.985-220.2-389.527 123.24-37.67 216.446-198.453 220.588-392.892zM531.16 450.445v352.632c117.674 1.553 211.787 40.778 211.787 88.676H304.097c0-48.286 95.149-87.382 213.728-88.676V450.445c-93.077-3.107-167.901-81.297-167.901-177.093 0-8.803 6.99-15.793 15.793-15.793 8.803 0 15.794 6.99 15.794 15.793 0 80.261 63.69 145.635 142.01 145.635s142.011-65.374 142.011-145.635c0-8.803 6.99-15.793 15.794-15.793s15.793 6.99 15.793 15.793c0 95.019-73.789 172.82-165.96 177.093z"></path></svg><span>大约 15 分钟</span><meta property="timeRequired" content="PT15M"></span><span class="page-category-info" aria-label="分类🌈" data-balloon-pos="up"><svg xmlns="http://www.w3.org/2000/svg" class="icon category-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="category icon"><path d="M148.41 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H148.41c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.311-40.31zM147.556 553.478H429.73c22.263 0 40.311 18.048 40.311 40.31v282.176c0 22.263-18.048 40.312-40.31 40.312H147.555c-22.263 0-40.311-18.049-40.311-40.312V593.79c0-22.263 18.048-40.311 40.31-40.311zM593.927 106.992h282.176c22.263 0 40.31 18.048 40.31 40.31V429.48c0 22.263-18.047 40.31-40.31 40.31H593.927c-22.263 0-40.311-18.047-40.311-40.31V147.302c0-22.263 18.048-40.31 40.31-40.31zM730.22 920.502H623.926c-40.925 0-74.22-33.388-74.22-74.425V623.992c0-41.038 33.387-74.424 74.425-74.424h222.085c41.038 0 74.424 33.226 74.424 74.067v114.233c0 10.244-8.304 18.548-18.547 18.548s-18.548-8.304-18.548-18.548V623.635c0-20.388-16.746-36.974-37.33-36.974H624.13c-20.585 0-37.331 16.747-37.331 37.33v222.086c0 20.585 16.654 37.331 37.126 37.331H730.22c10.243 0 18.547 8.304 18.547 18.547 0 10.244-8.304 18.547-18.547 18.547z"></path></svg><!--[--><span class="page-category-item category5" role>后端</span><span class="page-category-item category7" role>数据库</span><!--]--><meta property="articleSection" content="后端,数据库"></span><span class="page-tag-info" aria-label="标签🏷" data-balloon-pos="up"><svg xmlns="http://www.w3.org/2000/svg" class="icon tag-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="tag icon"><path d="M939.902 458.563L910.17 144.567c-1.507-16.272-14.465-29.13-30.737-30.737L565.438 84.098h-.402c-3.215 0-5.726 1.005-7.634 2.913l-470.39 470.39a10.004 10.004 0 000 14.164l365.423 365.424c1.909 1.908 4.42 2.913 7.132 2.913s5.223-1.005 7.132-2.913l470.39-470.39c2.01-2.11 3.014-5.023 2.813-8.036zm-240.067-72.121c-35.458 0-64.286-28.828-64.286-64.286s28.828-64.285 64.286-64.285 64.286 28.828 64.286 64.285-28.829 64.286-64.286 64.286z"></path></svg><!--[--><span class="page-tag-item tag1" role>mysql</span><span class="page-tag-item tag7" role>导航</span><!--]--><meta property="keywords" content="mysql,导航"></span></div><hr></div><div class="vp-toc-placeholder"><aside id="toc"><!--[--><!----><!--]--><div class="vp-toc-header">此页内容<button type="button" class="print-button" title="打印"><svg xmlns="http://www.w3.org/2000/svg" class="icon print-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="print icon"><path d="M819.2 364.8h-44.8V128c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v236.8h-44.8C145.067 364.8 96 413.867 96 473.6v192c0 59.733 49.067 108.8 108.8 108.8h44.8V896c0 17.067 14.933 32 32 32h460.8c17.067 0 32-14.933 32-32V774.4h44.8c59.733 0 108.8-49.067 108.8-108.8v-192c0-59.733-49.067-108.8-108.8-108.8zM313.6 160h396.8v204.8H313.6V160zm396.8 704H313.6V620.8h396.8V864zM864 665.6c0 25.6-19.2 44.8-44.8 44.8h-44.8V588.8c0-17.067-14.933-32-32-32H281.6c-17.067 0-32 14.933-32 32v121.6h-44.8c-25.6 0-44.8-19.2-44.8-44.8v-192c0-25.6 19.2-44.8 44.8-44.8h614.4c25.6 0 44.8 19.2 44.8 44.8v192z"></path></svg></button><div class="arrow end"></div></div><div class="vp-toc-wrapper"><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验一">实验一</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#_1-创建库">1. 创建库</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#_2-创建表">2. 创建表</a></li><!----><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#_3-插入数据">3. 插入数据</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验二">实验二</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#表及数据操作">表及数据操作</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验三">实验三</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#简单查询">简单查询</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验四">实验四</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#多表查询">多表查询</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验五">实验五</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#统计查询">统计查询</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验六">实验六</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#视图操作">视图操作</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验七">实验七</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#数据完整性">数据完整性</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验八">实验八</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#用户及权限管理">用户及权限管理</a></li><!----><!--]--></ul></li><!--]--><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level2" href="#实验九">实验九</a></li><li><ul class="vp-toc-list"><!--[--><li class="vp-toc-item"><a class="route-link vp-toc-link level3" href="#数据库完整性约束高级设置">数据库完整性约束高级设置</a></li><!----><!--]--></ul></li><!--]--></ul><div class="vp-toc-marker" style="top:-1.7rem;"></div></div><!--[--><!----><!--]--></aside></div><!--[--><!----><!--]--><div class="theme-hope-content"><h1 id="数据库练习" tabindex="-1"><a class="header-anchor" href="#数据库练习"><span>数据库练习</span></a></h1><blockquote><p>​ 数据库练习的一些实验</p></blockquote><h2 id="实验一" tabindex="-1"><a class="header-anchor" href="#实验一"><span>实验一</span></a></h2><h3 id="_1-创建库" tabindex="-1"><a class="header-anchor" href="#_1-创建库"><span>1. 创建库</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- 创建数据库，其数据库名称为邓世强22408050241
+CREATE DATABASE 邓世强22408050241;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="_2-创建表" tabindex="-1"><a class="header-anchor" href="#_2-创建表"><span>2. 创建表</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- 创建教师表
+DROP TABLE IF EXISTS t;
+CREATE TABLE t (
+	tno VARCHAR ( 32 ) PRIMARY KEY COMMENT &#39;教师号&#39;,
+	tn VARCHAR ( 20 ) COMMENT &#39;姓名&#39;,
+	sex CHAR ( 2 ) CHECK(sex = &#39;男&#39; or sex = &#39;女&#39;) COMMENT &#39;性别&#39;,
+	age TINYINT COMMENT &#39;年龄&#39;,
+	prof VARCHAR ( 10 ) COMMENT &#39;职称&#39;,
+	sal INT COMMENT &#39;工资&#39;,
+	comm INT COMMENT &#39;岗位津贴&#39;,
+	dept VARCHAR ( 20 ) COMMENT &#39;系名&#39;
+);
+SELECT * FROM t;
+-- 创建学生表
+DROP TABLE IF EXISTS s;
+CREATE TABLE s (
+	sno VARCHAR ( 32 ) PRIMARY KEY COMMENT &#39;学号&#39;,
+	sn VARCHAR ( 20 ) COMMENT &#39;姓名&#39;,
+	sex CHAR ( 2 ) CHECK(sex = &#39;男&#39; or sex = &#39;女&#39;) COMMENT &#39;性别&#39;,
+	birthday DATE COMMENT &#39;出生日期&#39;,
+	dept VARCHAR ( 20 ) COMMENT &#39;系名&#39;
+);
+-- 创建课程表
+DROP TABLE IF EXISTS c;
+CREATE TABLE c (
+	cno VARCHAR ( 32 ) PRIMARY KEY COMMENT &#39;课程号&#39;,
+	cn VARCHAR ( 20 ) COMMENT &#39;课程名&#39;,
+	time TINYINT COMMENT &#39;课时数&#39;,
+	credit TINYINT COMMENT &#39;学分&#39;,
+	prevCno VARCHAR ( 32 ) COMMENT &#39;先行课&#39;,
+	FOREIGN KEY (prevCno) REFERENCES c(cno) 
+);
+-- 创建选课表
+DROP TABLE IF EXISTS sc;
+CREATE TABLE sc (
+	sno VARCHAR ( 32 ) COMMENT &#39;学号&#39;,
+	cno VARCHAR ( 32 ) COMMENT &#39;课程号&#39;,
+	tno VARCHAR ( 32 ) COMMENT &#39;教师号&#39;,
+	score TINYINT COMMENT &#39;成绩&#39;,
+	FOREIGN KEY(sno) REFERENCES s(sno),
+	FOREIGN KEY(cno) REFERENCES c(cno),
+	FOREIGN KEY(tno) REFERENCES t(tno)
+);
+-- 创建授课表
+DROP TABLE IF EXISTS tc;
+CREATE TABLE tc (
+	tno VARCHAR ( 32 ) COMMENT &#39;教师号&#39;,
+	cno VARCHAR ( 32 ) COMMENT &#39;课程号&#39;,
+	weekday char(4) COMMENT &#39;周几&#39;,
+	preriod TINYINT COMMENT &#39;节次&#39;,
+	room VARCHAR(20) COMMENT &#39;教室&#39;,
+	eval VARCHAR(256) COMMENT &#39;评价&#39;,
+	FOREIGN KEY(tno) REFERENCES t(tno),
+	FOREIGN KEY(cno) REFERENCES c(cno)
+);
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h3 id="_3-插入数据" tabindex="-1"><a class="header-anchor" href="#_3-插入数据"><span>3. 插入数据</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- 插入学生信息
+INSERT INTO s(sno, sn, sex, birthday, dept) 
+	VALUES 
+(&#39;s1&#39;, &#39;赵亦&#39;, &#39;女&#39;, &#39;1995-01-01&#39;, &#39;计算机&#39;),
+(&#39;s2&#39;,&#39;钱尔&#39;, &#39;男&#39;,&#39;1996-01-10&#39;,&#39;信息&#39;),
+(&#39;s3&#39;,&#39;张小明&#39;, &#39;男&#39;,&#39;1995-12-10&#39;,&#39;信息&#39;),
+(&#39;s4&#39;,&#39;李思&#39;, &#39;男&#39;,&#39;1995-06-01&#39;,&#39;自动化&#39;),
+(&#39;s5&#39;,&#39;周武&#39;, &#39;男&#39;,&#39;1994-12-01&#39;,&#39;计算机&#39;),
+(&#39;s6&#39;,&#39;邓世强&#39;, &#39;男&#39;,&#39;1997-05-02&#39;,&#39;物理&#39;);
+-- 插入教师信息
+INSERT INTO t(tno, tn, sex, age, prof, sal, comm, dept) 
+	VALUES
+(&#39;t5&#39;, &#39;张兰&#39;, &#39;女&#39;, 39, &#39;副教授&#39;, &#39;1300&#39;,&#39;2000&#39;, &#39;信息&#39;),
+(&#39;t4&#39;, &#39;张雪&#39;, &#39;女&#39;, 51, &#39;教授&#39;, &#39;1600&#39;,&#39;3000&#39;, &#39;自动化&#39;),
+(&#39;t3&#39;, &#39;刘伟&#39;, &#39;男&#39;, 30, &#39;讲师&#39;, &#39;900&#39;, &#39;1200&#39;, &#39;计算机&#39;),
+(&#39;t2&#39;, &#39;王平&#39;, &#39;男&#39;, 28, &#39;教授&#39;, &#39;1900&#39;,&#39;2200&#39;, &#39;信息&#39;),
+(&#39;t1&#39;, &#39;李力&#39;, &#39;男&#39;, 47, &#39;教授&#39;, &#39;1500&#39;,&#39;3000&#39;, &#39;计算机&#39;);
+
+
+-- 插入课程数据
+INSERT INTO c(cno, cn, time, credit, prevCno) 
+	VALUES 
+(&#39;c1&#39;,&#39;程序设计&#39;, 60, 3 , null),
+(&#39;c2&#39;,&#39;微机原理&#39;, 60, 3 , &#39;c1&#39;),
+(&#39;c3&#39;,&#39;数据库&#39;, 90, 4 , &#39;c1&#39;),
+(&#39;c5&#39;,&#39;高等数学&#39;, 80, 4 , null),
+(&#39;c4&#39;,&#39;数据结构&#39;, 80, 4 , &#39;c1&#39;),
+(&#39;c6&#39;,&#39;普通物理&#39;, 90, 4 , null);
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="实验二" tabindex="-1"><a class="header-anchor" href="#实验二"><span>实验二</span></a></h2><h3 id="表及数据操作" tabindex="-1"><a class="header-anchor" href="#表及数据操作"><span>表及数据操作</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>SELECT * from t;
+-- 把学生“周武”的年龄改为19，系别改为“信息”
+UPDATE s SET birthday = date_sub(now(), INTERVAL 30 YEAR), dept = &#39;信息&#39; where sn = &#39;周武&#39;;
+-- 将教师“王平”的职称改为“副教授”
+UPDATE t SET prof = &#39;副教授&#39; where tn = &#39;王平&#39;;
+
+-- 删除你自已添加的一些数据行或删除周武和王平两行，注意：删除之前请先备份，以便出错后恢复。
+drop TABLE t_temp, s_temp;
+CREATE TABLE t_temp (
+	tno VARCHAR ( 32 ) PRIMARY KEY COMMENT &#39;教师号&#39;,
+	tn VARCHAR ( 20 ) COMMENT &#39;姓名&#39;,
+	sex CHAR ( 2 ) CHECK(sex = &#39;男&#39; or sex = &#39;女&#39;) COMMENT &#39;性别&#39;,
+	age TINYINT COMMENT &#39;年龄&#39;,
+	prof VARCHAR ( 10 ) COMMENT &#39;职称&#39;,
+	sal INT COMMENT &#39;工资&#39;,
+	comm INT COMMENT &#39;岗位津贴&#39;,
+	dept VARCHAR ( 20 ) COMMENT &#39;系名&#39;
+);
+CREATE TABLE s_temp (
+	sno VARCHAR ( 32 ) PRIMARY KEY COMMENT &#39;学号&#39;,
+	sn VARCHAR ( 20 ) COMMENT &#39;姓名&#39;,
+	sex CHAR ( 2 ) CHECK(sex = &#39;男&#39; or sex = &#39;女&#39;) COMMENT &#39;性别&#39;,
+	birthday datetime COMMENT &#39;出生日期&#39;,
+	dept VARCHAR ( 20 ) COMMENT &#39;系名&#39;
+);
+-- 备份表
+INSERT INTO s_temp SELECT *  from s; 
+INSERT INTO t_temp SELECT *  from t; 
+-- 删除记录
+DELETE FROM s WHERE sn = &#39;周武&#39;;
+DELETE FROM t WHERE tn = &#39;王平&#39;;
+
+SELECT t.tn, t.tno, tc.cno, c.cn FROM t INNER JOIN tc ON tc.tno = t.tno INNER JOIN c ON tc.cno = c.cno;
+-- 用命令为sc表及tc表输入一些数据
+INSERT INTO sc(sno, cno, tno, score) 
+	VALUES 
+(&#39;s1&#39;, &#39;c3&#39;, &#39;t1&#39;, 59),
+(&#39;s1&#39;, &#39;c2&#39;, &#39;t2&#39;, 80),
+(&#39;s1&#39;, &#39;c1&#39;, &#39;t2&#39;, 80),
+
+(&#39;s2&#39;, &#39;c1&#39;, &#39;t1&#39;, 88),
+(&#39;s2&#39;, &#39;c4&#39;, &#39;t4&#39;, 58),
+(&#39;s2&#39;, &#39;c3&#39;, &#39;t3&#39;, 61),
+
+(&#39;s3&#39;, &#39;c1&#39;, &#39;t2&#39;, 97),
+(&#39;s3&#39;, &#39;c4&#39;, &#39;t4&#39;, 88),
+(&#39;s3&#39;, &#39;c2&#39;, &#39;t2&#39;, 80),
+(&#39;s3&#39;, &#39;c5&#39;, &#39;t1&#39;, 81),
+
+(&#39;s4&#39;, &#39;c4&#39;, &#39;t4&#39;, 49),
+(&#39;s4&#39;, &#39;c2&#39;, &#39;t2&#39;, 69),
+(&#39;s4&#39;, &#39;c1&#39;, &#39;t3&#39;, 73),
+
+(&#39;s5&#39;, &#39;c5&#39;, &#39;t1&#39;, 83),
+
+(&#39;s6&#39;, &#39;c5&#39;, &#39;t1&#39;, 80),
+(&#39;s6&#39;, &#39;c6&#39;, &#39;t5&#39;, 90);
+
+INSERT INTO tc (tno, cno, weekday, preriod, room) VALUES 
+(&#39;t1&#39;, &#39;c3&#39;, &#39;周一&#39;, 2, &#39;#1A0102&#39;),
+(&#39;t1&#39;, &#39;c1&#39;, &#39;周二&#39;, 3, &#39;#1A0402&#39;),
+(&#39;t1&#39;, &#39;c5&#39;, &#39;周三&#39;, 1, &#39;#1A0101&#39;),
+(&#39;t3&#39;, &#39;c3&#39;, &#39;周一&#39;, 2, &#39;#1A0103&#39;),
+(&#39;t3&#39;, &#39;c1&#39;, &#39;周二&#39;, 3, &#39;#1A0404&#39;),
+(&#39;t2&#39;, &#39;c2&#39;, &#39;周一&#39;, 1, &#39;#1A0204&#39;),
+(&#39;t2&#39;, &#39;c1&#39;, &#39;周二&#39;, 1, &#39;#1A0201&#39;),
+(&#39;t5&#39;, &#39;c6&#39;, &#39;周二&#39;, 1, &#39;#1A0203&#39;),
+(&#39;t4&#39;, &#39;c4&#39;, &#39;周三&#39;, 3, &#39;#1A0405&#39;);
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="实验三" tabindex="-1"><a class="header-anchor" href="#实验三"><span>实验三</span></a></h2><h3 id="简单查询" tabindex="-1"><a class="header-anchor" href="#简单查询"><span>简单查询</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- 查询计算机系的所有教师
+SELECT * FROM t WHERE dept = &#39;计算机&#39;;
+
+-- 查询所有女同学的姓名，年龄
+SELECT sn 姓名, FLOOR(DATEDIFF(NOW(),birthday) / 365) as 年龄 FROM s WHERE sex = &#39;女&#39;;
+
+-- 查询计算机系教师开设的所有课程的课程号和课程名
+SELECT DISTINCT c.cno 课程号, c.cn 课程名 FROM t, c, tc where c.cno = tc.cno and tc.tno = t.tno and t.dept = &#39;计算机&#39;;
+
+-- 查询年龄在18~20岁（包括18和30）之间的所有学生的信息
+SELECT *, FLOOR(DATEDIFF(NOW(),birthday) / 365) age FROM s WHERE FLOOR(DATEDIFF(NOW(),birthday) / 365) BETWEEN 18 and 30;
+
+-- 查询年龄小于20岁的所有男同学的学号和姓名
+SELECT sno 学号, sn as &#39;姓名&#39; FROM s where FLOOR(DATEDIFF(NOW(),birthday) / 365) &lt; 20;
+
+-- 查询姓“李”的所有学生的姓名、年龄和性别
+SELECT sn as &#39;姓名&#39;, FLOOR(DATEDIFF(NOW(),birthday) / 365) age, sex 性别 FROM s where sn like &#39;李%&#39;;
+
+-- 查询所有女同学所选课程的课程号
+SELECT c.cno from s, sc, c WHERE s.sex = &#39;女&#39; and s.sno = sc.sno and sc.cno = c.cno;
+
+-- 查询至少有一门成绩高于90分的学生姓名和年龄
+SELECT DISTINCT sn 姓名, FLOOR(DATEDIFF(NOW(),birthday) / 365) 年龄 FROM s, sc WHERE s.sno = sc.sno and score &gt; 90;
+
+-- 查询选修“微机原理”的所有学生的姓名和成绩
+SELECT s.sn 姓名, score 成绩 FROM s, sc, c WHERE s.sno = sc.sno and sc.cno = c.cno and c.cn = &#39;微机原理&#39;;
+
+-- 试算所有“数据库”成绩统一增加10%后（超过100分按100计算），全班平均分是多少？（注意：请不要修改原始成绩）
+SELECT AVG( CASE WHEN  score &gt; 90  THEN 100 ELSE score * 1.1 END) 平均成绩 from sc, c where c.cn = &#39;数据库&#39; AND sc.cno = c.cno;
+	
+-- 试算所有“数据结构”成绩60分以下的统一增加10分后，仍有多少人不及格
+SELECT COUNT(1) from sc, c where c.cn = &#39;数据结构&#39; AND sc.cno = c.cno AND (score + 10) &lt; 60;	
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="实验四" tabindex="-1"><a class="header-anchor" href="#实验四"><span>实验四</span></a></h2><h3 id="多表查询" tabindex="-1"><a class="header-anchor" href="#多表查询"><span>多表查询</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- 查询至少选修课程号为“c2”和“c4”两门课程的学生的学号 
+SELECT sno FROM sc WHERE cno=&#39;c2&#39; AND sno IN(SELECT sno FROM sc WHERE cno = &#39;c4&#39;);
+
+-- 查询选修了“高等数学”或“普通物理”的学生姓名
+SELECT DISTINCT s.sn 姓名 FROM s, sc, c WHERE s.sno = sc.sno and sc.cno = c.cno and (c.cn = &#39;高等数学&#39; or c.cn = &#39;普通物理&#39;);
+-- 查询选修了王平老师所讲授所有课程的学生的学号和成绩
+SELECT sc.sno, sc.score FROM sc WHERE sc.sno in (
+	SELECT sc.sno FROM sc 
+	INNER JOIN t ON t.tno = sc.tno
+	WHERE t.tn=&#39;王平&#39; GROUP BY sc.sno     
+	HAVING count(sc.cno)=
+	(SELECT count(tc.cno) FROM tc 
+			INNER JOIN c ON c.cno = tc.cno 
+			INNER JOIN t ON t.tno = tc.tno 
+			WHERE t.tn = &#39;王平&#39; )
+);
+-- 查询未选修王老师所讲授任意课程的学生的学号和成绩
+SELECT 
+	sc.sno, sc.score 
+FROM 
+	sc 
+WHERE 
+	sc.sno 
+NOT IN(
+	SELECT 
+		sc.sno 
+	FROM 
+		sc 
+	INNER JOIN t ON t.tno = sc.tno
+	WHERE t.tn=&#39;王平&#39; GROUP BY sc.sno);
+-- 查询选修了“计算机”系教师所讲授的课程的学生姓名和成绩 
+SELECT s.sn, sc.score FROM s INNER JOIN sc ON s.sno = sc.sno WHERE sc.tno in(
+	SELECT sc.tno FROM t INNER JOIN sc ON sc.tno = t.tno WHERE t.dept = &#39;计算机&#39;
+);
+-- 查询学号比“张小明”同学大而年龄比他小的学生姓名 
+SELECT 
+	s1.sn,  FLOOR(DATEDIFF(NOW(),s1.birthday) / 365) age 
+FROM 
+	s s1 INNER JOIN s s2 
+	ON 
+		FLOOR(DATEDIFF(NOW(),s1.birthday) / 365) &lt; FLOOR(DATEDIFF(NOW(),s2.birthday) / 365) 
+	AND 
+		s1.sno &gt; s2.sno 
+WHERE 
+	s2.sn = &#39;张小明&#39;;
+	
+-- 查询年龄大于所有女同学年龄的男学生的姓名和年龄 
+SELECT sn, FLOOR(DATEDIFF(NOW(),s.birthday) / 365) age FROM s WHERE FLOOR(DATEDIFF(NOW(),s.birthday) / 365) &gt; 
+(SELECT MAX(FLOOR(DATEDIFF(NOW(),s1.birthday) / 365)) age from  s s1 WHERE s1.sex = &#39;女&#39;) AND s.sex = &#39;男&#39;;
+
+-- 查询未选修“高等数学”的学生的学号和姓名 
+SELECT s.sno, s.sn FROM s WHERE s.sno NOT IN (SELECT sno FROM c, sc WHERE c.cno = sc.cno AND c.cn = &#39;高等数学&#39;);
+
+-- 查询不是计算机系教师所讲授的课程的课程名和课程号 
+SELECT c.cn, c.cno FROM c WHERE c.cno NOT IN (SELECT DISTINCT cno FROM t, sc WHERE t.tno = sc.tno AND t.dept = &#39;计算机&#39;);
+
+-- 查询未选修“c2”号课程的学生的学号和姓名 
+SELECT s.sno, s.sn FROM s WHERE s.sno NOT IN (SELECT sc.sno FROM sc WHERE sc.cno = &#39;c2&#39;);
+
+-- 从学生表和教师表可以了解到哪些院系名称 chatgpt
+SELECT DISTINCT dept FROM (
+  SELECT dept FROM s
+  UNION ALL
+  SELECT dept FROM t
+) AS departments;
+
+-- 查询哪些学生所选的课程是由本院系的教师教的，列举学生姓名、课程名和教师名 chatgpt
+SELECT s.sn AS 学生姓名, c.cn AS 课程名, t.tn AS 教师名
+FROM s
+JOIN sc ON s.sno = sc.sno
+JOIN c ON sc.cno = c.cno
+JOIN tc ON c.cno = tc.cno AND sc.tno = tc.tno
+JOIN t ON tc.tno = t.tno AND s.dept = t.dept
+
+-- 如果在同一个班上课就认定为同学，请列举所有可能的同学关系，至少包含三列：学生姓名、同学姓名、共同课程名。
+
+-- 由于课程有上下承接关系，请列举课程先后关系，必须先上的在前，后上的在后，无承接关系的不列举	
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="实验五" tabindex="-1"><a class="header-anchor" href="#实验五"><span>实验五</span></a></h2><h3 id="统计查询" tabindex="-1"><a class="header-anchor" href="#统计查询"><span>统计查询</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- 查询女同学的人数
+SELECT count(1) 女同学人数 FROM s WHERE s.sex = &#39;女&#39;;
+
+-- 查询男同学的平均年龄
+SELECT AVG(FLOOR(DATEDIFF(NOW(), birthday) / 365)) avg_age FROM s WHERE sex = &#39;男&#39;
+
+-- 查询男、女同学各有多少人
+SELECT sex, COUNT(1) FROM s GROUP BY sex;
+
+-- 查询年龄大于女同学平均年龄的男学生的姓名和年龄
+SELECT sn, FLOOR(DATEDIFF(NOW(), birthday) / 365) age FROM s WHERE sex = &#39;男&#39; AND FLOOR(DATEDIFF(NOW(), birthday) / 365) &gt; (SELECT AVG(FLOOR(DATEDIFF(NOW(), birthday) / 365)) FROM s WHERE s.sex = &#39;女&#39;)
+
+-- 查询所有学生选修的课程门数
+SELECT s.sno, s.sn, COUNT(s.sno) 选修课程数 FROM s INNER JOIN sc ON sc.sno = s.sno GROUP BY s.sno;
+
+-- 查询每门课程的学生选修人数（只输出超过10人的课程）,要求输出课程号和课程名及选修人数,查询结果按人数降序排列，若人数相同，按课程号升序排列
+SELECT sc.cno, c.cn, COUNT(sc.cno) 人数 FROM sc INNER JOIN c ON c.cno=sc.cno GROUP BY sc.cno HAVING COUNT(sc.cno) &gt; 2 ORDER BY COUNT(sc.cno) DESC, sc.cno ASC;
+
+-- 查询只选修了一门课程的学生学号和姓名
+SELECT sc.sno, s.sn FROM s INNER JOIN sc on sc.sno = s.sno GROUP BY sc.sno HAVING COUNT(sc.sno) = 1;
+
+-- 查询至少选修了两门课程的学生学
+SELECT sc.sno, s.sn FROM s INNER JOIN sc on sc.sno = s.sno GROUP BY sc.sno HAVING COUNT(sc.sno) &gt;1;
+
+-- 查询至少讲授两门课程的教师姓名和其所在系
+SELECT t.tn, t.dept FROM t INNER JOIN tc ON t.tno = tc.tno GROUP BY tc.tno HAVING COUNT(tc.tno) &gt; 1; 
+
+-- 查询高等数学课程的平均分
+SELECT AVG(score) 高等数学平均分 FROM sc INNER JOIN c ON sc.cno = c.cno WHERE c.cn = &#39;高等数学&#39;;
+
+-- 查询每个学生的总分，要求输出学号和分数，并按分数由高到低排列，分数相同时按学号升序排列
+SELECT sno, SUM(score) 总分 FROM sc GROUP BY sno ORDER BY SUM(score) DESC, sno ASC;
+
+-- 查询各科成绩等级分布情况，即看每门课程A等多少人、B等多少人...
+
+select 
+    sc.cno, c.cn ,
+    sum(case when sc.score &gt;= 90 then 1 else 0 end) as A, -- 如果学生等级为A,则A这一列加1,否则加0
+    sum(case when sc.score &gt;= 80 &amp;&amp; sc.score &lt; 90 then 1 else 0 end) as B,
+    sum(case when sc.score &gt;= 70 &amp;&amp; sc.score &lt; 80 then 1 else 0 end) as C,
+    sum(case when sc.score &gt;= 60 &amp;&amp; sc.score &lt; 70 then 1 else 0 end) as D,
+    sum(case when sc.score &lt; 60 then 1 else 0 end) as E
+    from c INNER JOIN sc ON c.cno = sc.cno GROUP BY sc.cno; 
+
+-- 统计各科成绩等级分布情况存入新表statgrade，即看每门课程A等多少人、B等多少人...
+CREATE TABLE statgrade select 
+    sc.cno, c.cn ,
+    sum(case when sc.score &gt;= 90 then 1 else 0 end) as A, -- 如果学生等级为A,则A这一列加1,否则加0
+    sum(case when sc.score &gt;= 80 &amp;&amp; sc.score &lt; 90 then 1 else 0 end) as B,
+    sum(case when sc.score &gt;= 70 &amp;&amp; sc.score &lt; 80 then 1 else 0 end) as C,
+    sum(case when sc.score &gt;= 60 &amp;&amp; sc.score &lt; 70 then 1 else 0 end) as D,
+    sum(case when sc.score &lt; 60 then 1 else 0 end) as E
+    from c INNER JOIN sc ON c.cno = sc.cno GROUP BY sc.cno; 
+		
+SELECT * from statgrade;
+
+-- 统计各科课程号、课程名、选课人数、平均分、最高分、最低分，并存入新表statscore
+CREATE TABLE statscore select 
+    sc.cno 课程号, c.cn 课程名, COUNT(*) 选课人数, AVG(score) 平均分, MAX(score) 最高分, MIN(score) 最低分
+    from c INNER JOIN sc ON c.cno = sc.cno GROUP BY sc.cno; 
+SELECT * from statscore;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="实验六" tabindex="-1"><a class="header-anchor" href="#实验六"><span>实验六</span></a></h2><h3 id="视图操作" tabindex="-1"><a class="header-anchor" href="#视图操作"><span>视图操作</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- view_s: 只允许看到学号，姓名，性别，院系这四列。
+CREATE VIEW view_s AS SELECT sno, sn, sex, dept FROM s;
+SELECT * FROM view_s;
+
+-- view_cj:要求包含学号，姓名，课程名，成绩。
+CREATE VIEW view_cj AS SELECT s.sno, sn, cn, score FROM s INNER JOIN sc ON s.sno = sc.sno INNER JOIN c ON sc.cno = c.cno;
+SELECT * FROM view_cj;
+
+-- view_kc:要求包含教师名，课程名，周几,节次，教室
+CREATE VIEW view_kc AS SELECT t.tn 教师名, c.cn 课程名, tc.weekday 周几, tc.preriod 节次, tc.room 教室 FROM t INNER JOIN tc ON t.tno = tc.tno INNER JOIN c ON tc.cno = c.cno;
+
+-- view_s1:要求从view_s的基础上创建，且只看到性别为男的记录，只包含学号，姓名，院系这三列。 
+CREATE VIEW view_s1 AS SELECT sno, sn, dept FROM view_s WHERE sex = &#39;男&#39;;
+
+-- V_MAX_MIN(Cno,MAX,MIN),反映所有课程的课程号（Cno），最高成绩（MAX）和最低成绩MIN 
+CREATE VIEW V_MAX_MIN AS SELECT sc.cno 课程号, MAX(score) 最高成绩, MIN(score) 最低成绩 FROM sc GROUP BY cno;
+
+-- V_FAIL(Sname,Cname,score)，反映成绩不及格的学生名（Sname），课程名（Cname）和成绩（score） 
+CREATE VIEW V_FAIL AS SELECT s.sn, c.cn, score FROM s INNER JOIN sc ON s.sno = sc.sno INNER JOIN c ON sc.cno = c.cno WHERE score &lt; 60;
+
+-- v_statgrade: 统计各科成绩等级分布情况，即看每门课程A等多少人、B等多少人
+CREATE VIEW v_statgrade AS select * FROM statgrade;
+
+-- v_statscore: 统计各科课程号、课程名、选课人数、平均分、最高分、最低分
+CREATE VIEW v_statscore AS select * FROM statscore;
+
+-- v_syear:统计各年份出生的人数分布情况，即：1996年出生人数、1997年人数...  后，修改基本数据后查看视图的数据是否变化，并尝试通过视图修改基表的数据
+CREATE VIEW v_syear AS SELECT DATE_FORMAT(birthday, &#39;%Y&#39;) year, COUNT(1) 人数 FROM s GROUP BY DATE_FORMAT(birthday, &#39;%Y&#39;);
+
+-- 将视图view_s中的性别列删除。并且增加年龄列，且只能看到年龄在18岁及以下的学生，并且确保用户基于视图的修改不会导致记录脱离本视图。
+SELECT * FROM view_s;
+ALTER VIEW view_s AS SELECT sno, sn, FLOOR(DATEDIFF(NOW(), birthday) / 365) age, dept FROM s WHERE FLOOR(DATEDIFF(NOW(), birthday) / 365) &lt; 18;
+
+-- 基于视图view_s插入新的记录，然后删除刚插入的记录(聚集函数视图不能插入)。
+INSERT INTO view_s(sno, sn, dept)VALUES(&#39;s_v1&#39;, &#39;张三&#39;, &#39;电机&#39;);
+DELETE view_s WHERE sno = &#39;s_v1&#39; 
+
+-- 通过视图view_cj修改某学生的成绩。 
+UPDATE view_cj set score = 71 WHERE sno = &#39;s2&#39; AND cn = &#39;数据库&#39;;
+
+-- 通过v_Fail视图修改学生成绩，如将某不及格成绩修改为60分。
+UPDATE V_FAIL set score = 60 WHERE score &lt; 60;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="实验七" tabindex="-1"><a class="header-anchor" href="#实验七"><span>实验七</span></a></h2><h3 id="数据完整性" tabindex="-1"><a class="header-anchor" href="#数据完整性"><span>数据完整性</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- 将S表在学号创建为主键，将T表在教师号上创建主键，C表以课程号为主键，SC以学号与课程号为主键
+ALTER TABLE s ADD CONSTRAINT sno PRIMARY KEY sno;
+ALTER TABLE c ADD CONSTRAINT cno PRIMARY KEY cno;
+ALTER TABLE sc ADD CONSTRAINT scno PRIMARY KEY (sno, cno);
+-- 为TC表的教师号与课程号创建唯一约束
+-- ALTER TABLE ADD CONSTRAINT UNIQUE();
+ALTER TABLE tc ADD CONSTRAINT UNIQUE(tno, cno);
+
+-- 为TC表增加ID_TC列，设置自动增加，种子为1，增量为1，并设置此列为主键。
+ALTER TABLE tc ADD COLUMN ID_TC INT PRIMARY key auto_increment;
+
+-- 创建S表和SC之间的参照关系（如：SC中的学号引用S中的学号，其它自己思考），
+-- sc表的cno参照c表的课程号cno,
+-- T与TC之间的参照关系，C表与TC表的参照关系，
+-- 并输入一条不符合参照约束的记录，以验证这些参照约束是否有效。 
+ALTER TABLE sc ADD CONSTRAINT fk_sno FOREIGN KEY (sno) REFERENCES s(sno);
+ALTER TABLE sc ADD CONSTRAINT fk_cno FOREIGN KEY (cno) REFERENCES c(cno);
+ALTER TABLE sc ADD CONSTRAINT fk_tno FOREIGN KEY (tno) REFERENCES t(tno);
+ALTER TABLE tc ADD CONSTRAINT fk_tcno FOREIGN KEY (tno) REFERENCES t(tno);
+
+-- 学生表设置性别的默认值“男”，年龄必须在14到40岁之间。性别必须为男或女。
+ALTER TABLE s ADD CONSTRAINT checksex CHECK(sex = &#39;男&#39; or sex = &#39;女&#39;); 
+-- ALTER TABLE s ADD CONSTRAINT checksex CHECK(sex = &#39;男&#39; or sex = &#39;女&#39;); 
+ALTER TABLE s ADD CONSTRAINT sexdefault DEFAULT (&#39;男&#39;) FOR sex; 
+-- 选课表设置成绩必须在0～100之间。
+ALTER TABLE sc ADD CONSTRAINT checkscore CHECK(score &gt;= 0 and score &lt;= 100);
+
+-- 限定教师的岗位津贴：教授必为4000，副教授2000，讲师1500，助教1000
+ALTER TABLE t ADD CONSTRAINT checkcomn CHECK(
+	(prof = &#39;教授&#39; AND comm = 3000) OR
+	(prof = &#39;副教授&#39; AND comm = 2000) OR
+	(prof = &#39;讲师&#39; AND comm = 1500) OR
+	(prof = &#39;助教&#39; AND comm = 1000)
+);
+
+-- 课时数至少是学分的17倍，如：3学分的课程至少要上52课时
+ALTER TABLE c ADD CONSTRAINT checktime CHECK(time &gt;= credit * 17);
+-- 删除约束
+ALTER TABLE c DROP CONSTRAINT checktime;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="实验八" tabindex="-1"><a class="header-anchor" href="#实验八"><span>实验八</span></a></h2><h3 id="用户及权限管理" tabindex="-1"><a class="header-anchor" href="#用户及权限管理"><span>用户及权限管理</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>
+
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div></div></div><h2 id="实验九" tabindex="-1"><a class="header-anchor" href="#实验九"><span>实验九</span></a></h2><h3 id="数据库完整性约束高级设置" tabindex="-1"><a class="header-anchor" href="#数据库完整性约束高级设置"><span>数据库完整性约束高级设置</span></a></h3><div class="language-mysql line-numbers-mode" data-ext="mysql" data-title="mysql"><pre class="language-mysql"><code>-- 修改前面的学生选课表SC与课程表C的联系（表示学生与课程的多对多联系），以便删除学生的同时，自动删除该生所有选课信息
+CREATE TRIGGER del_s before DELETE ON s for each row DELETE FROM sc WHERE sc.sno = OLD.sno;
+
+-- 修改课程表C、任课表TC、学生选课表SC之间的关系，禁止删除授课信息TC的同时级联删除所有相关选课SC，且不允许单独删除课程（如果已经安排老师上这门课）。
+
+
+-- 给课程表添加限员personLimt和选课人数selectCnt字段
+ALTER TABLE c ADD COLUMN personLimt TINYINT DEFAULT 60, ADD COLUMN selectCnt TINYINT DEFAULT 0;
+-- 设置所有课程的选课人数不得超过限员人数。 
+ALTER TABLE c ADD CONSTRAINT check_num CHECK(selectCnt &lt;= personLimt);
+
+SHOW TRIGGERS;
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div><!--[--><!----><!--]--><footer class="vp-page-meta"><div class="vp-meta-item edit-link"><a href="https://github.com/wbthylove/thylove/edit/main/src/zh/codenotes/back-end/database/mysql.md" rel="noopener noreferrer" target="_blank" aria-label="在 GitHub 上编辑此页" class="nav-link vp-meta-label"><!--[--><svg xmlns="http://www.w3.org/2000/svg" class="icon edit-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-label="edit icon"><path d="M430.818 653.65a60.46 60.46 0 0 1-50.96-93.281l71.69-114.012 7.773-10.365L816.038 80.138A60.46 60.46 0 0 1 859.225 62a60.46 60.46 0 0 1 43.186 18.138l43.186 43.186a60.46 60.46 0 0 1 0 86.373L588.879 565.55l-8.637 8.637-117.466 68.234a60.46 60.46 0 0 1-31.958 11.229z"></path><path d="M728.802 962H252.891A190.883 190.883 0 0 1 62.008 771.98V296.934a190.883 190.883 0 0 1 190.883-192.61h267.754a60.46 60.46 0 0 1 0 120.92H252.891a69.962 69.962 0 0 0-69.098 69.099V771.98a69.962 69.962 0 0 0 69.098 69.098h475.911A69.962 69.962 0 0 0 797.9 771.98V503.363a60.46 60.46 0 1 1 120.922 0V771.98A190.883 190.883 0 0 1 728.802 962z"></path></svg><!--]-->在 GitHub 上编辑此页<span><svg class="external-link-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg><span class="external-link-icon-sr-only">open in new window</span></span><!----></a></div><div class="vp-meta-item git-info"><div class="update-time"><span class="vp-meta-label">上次编辑于: </span><!----></div><div class="contributors"><span class="vp-meta-label">贡献者: </span><!--[--><!--[--><span class="vp-meta-info" title="email: wbthylove@163.com">thylove-dsq</span><!--]--><!--]--></div></div></footer><nav class="vp-page-nav"><!----><a class="route-link nav-link next" href="/zh/codenotes/back-end/database/sqlserver.html" aria-label="sql server"><div class="hint">下一页<span class="arrow end"></span></div><div class="link">sql server<span class="font-icon icon fa-fw fa-sm fas fa-mysql" style=""></span></div></a></nav><div id="vp-comment" class="giscus-wrapper input-top" style="display:block;"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" preserveAspectRatio="xMidYMid" viewBox="0 0 100 100"><circle cx="28" cy="75" r="11" fill="currentColor"><animate attributeName="fill-opacity" begin="0s" dur="1s" keyTimes="0;0.2;1" repeatCount="indefinite" values="0;1;1"></animate></circle><path fill="none" stroke="#88baf0" stroke-width="10" d="M28 47a28 28 0 0 1 28 28"><animate attributeName="stroke-opacity" begin="0.1s" dur="1s" keyTimes="0;0.2;1" repeatCount="indefinite" values="0;1;1"></animate></path><path fill="none" stroke="#88baf0" stroke-width="10" d="M28 25a50 50 0 0 1 50 50"><animate attributeName="stroke-opacity" begin="0.2s" dur="1s" keyTimes="0;0.2;1" repeatCount="indefinite" values="0;1;1"></animate></path></svg></div><!--[--><!----><!--]--><!--]--></main><!--]--><footer class="vp-footer-wrapper"><div class="vp-footer">默认页脚</div><div class="vp-copyright">Copyright © 2024 Mr.Bing </div></footer></div><!--]--><!--[--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-556UZhiF.js" defer></script>
+  </body>
+</html>
