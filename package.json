@@ -1,0 +1,27 @@
+{
+  "name": "my-docs",
+  "version": "2.0.0",
+  "description": "myself-create-study",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "docs:build": "vuepress-vite build src",
+    "docs:clean-dev": "vuepress-vite dev src --clean-cache",
+    "docs:dev": "vuepress-vite dev src",
+    "docs:update-package": "npx vp-update"
+  },
+  "devDependencies": {
+    "@vuepress/bundler-vite": "2.0.0-rc.14",
+    "vue": "^3.4.31",
+    "vuepress": "2.0.0-rc.14",
+    "vuepress-theme-hope": "2.0.0-rc.52",
+    "@vuepress/plugin-search": "next",
+    "@vuepress/plugin-shiki": "next"
+  },
+  "dependencies": {
+    "artplayer": "^5.1.1",
+    "dashjs": "^4.7.4",
+    "hls.js": "^1.5.8",
+    "mpegts.js": "^1.7.3"
+  }
+}
