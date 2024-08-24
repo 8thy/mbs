@@ -12,7 +12,7 @@ export default hopeTheme({
     iconAssets: "fontawesome",
     logo: "/logo.svg",
 
-    repo: "https://gitee.com/keaidewenbing/my-docs-new",
+    repo: "https://github.com/8thy/mbs",
 
     docsDir: "src",
 
@@ -79,7 +79,6 @@ export default hopeTheme({
                 "BiliBili",
                 "CodePen",
                 "PDF",
-                "Replit",
                 "Share",
                 "SiteInfo",
                 "StackBlitz",

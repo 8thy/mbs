@@ -1,6 +1,8 @@
 import {defineUserConfig} from "vuepress";
 import theme from "./theme.js";
-import {hopeTheme} from "vuepress-theme-hope";
+// import {hopeTheme} from "vuepress-theme-hope";
+import {searchProPlugin} from "vuepress-plugin-search-pro";
+
 
 export default defineUserConfig({
     base:`/`,
@@ -18,7 +20,14 @@ export default defineUserConfig({
         },
     },
 
-    theme
+    theme,
     // Enable it with pwa
     // shouldPrefetch: false,
+    plugins: [
+        searchProPlugin({
+            indexContent: true,
+            queryHistoryCount: 5,
+            resultHistoryCount: 5
+        })
+    ]
 });

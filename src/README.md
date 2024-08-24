@@ -2,13 +2,13 @@
 home: true
 icon: home
 title: Project home
-heroImage: https://theme-hope-assets.vuejs.press/logo.svg
+heroImage: /logo.svg
 bgImage: https://theme-hope-assets.vuejs.press/bg/6-light.svg
 bgImageDark: https://theme-hope-assets.vuejs.press/bg/6-dark.svg
 bgImageStyle:
   background-attachment: fixed
-heroText: Project name
-tagline: You can place the description of the project here.
+heroText: thylove
+tagline: thylove is a backend project developed by - dsq.
 actions:
   - text: How to Use
     icon: lightbulb
