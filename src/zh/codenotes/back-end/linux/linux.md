@@ -168,7 +168,10 @@ v2rayA安装，从此处下载：https://github.com/v2rayA/v2rayA/releases/
 下载对应架构的包后安装：
 
 ```bash
+# cenots
 rpm -ivh installer_redhat_x64_2.2.5.8.rpm
+# ubuntu
+sudo dpkg -i installer_debian_x64_2.2.5.8.deb
 ```
 
 配置v2rayA：
